@@ -55,8 +55,25 @@ def solve(client, zero_flippers=False, verbose=False):
                 p = obs["pitch"]
                 front = 0.0 if p < -0.08 else (-0.30 if p < 0.08 else 0.08)
                 rear = -0.30 if p < -0.08 else (0.30 if p > 0.08 else 0.0)
-                # When a descent bridges a nosing, retract front support as measured
-                # chassis clearance grows. This uses the disclosed step map and Z.
+                # A chassis bridged high across a nosing can unload the leading
+                # wheels. Release rear support when Z and measured progress show it.
+                if p < -0.08 and target["flight"] is not None:
+                    f = mission["flights"][target["flight"]]
+                    sf = sum(
+                        (v - o) * ax
+                        for v, o, ax in zip(obs["xyz"][:2], f["origin"], f["axis"])
+                    )
+                    level = (
+                        f["base"]
+                        + max(0, min(f["count"], math.floor(sf / f["tread"]) + 1))
+                        * f["rise"]
+                    )
+                    if (
+                        obs["xyz"][2] - level - 0.125 > 0.035
+                        and math.hypot(*obs["velocity"][:2]) < 0.12
+                    ):
+                        rear = 0.0
+                # Retract front support during high bridging on descent.
                 if p > 0.08 and target["flight"] is not None:
                     f = mission["flights"][target["flight"]]
                     along_f = sum(

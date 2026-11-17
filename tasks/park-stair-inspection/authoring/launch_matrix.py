@@ -127,11 +127,17 @@ def trial(out, mode, selection, repeat, sequence=None):
         instance=seal["scene"]["instance"],
         **grades[0],
     )
-    data["termination"] = (
-        "completion"
-        if data.get("success")
-        else "incomplete/violated; see checks and first_violation"
-    )
+    try:
+        policy_error = json.loads(proc.stdout.strip().splitlines()[-1]).get("error")
+    except (ValueError, IndexError):
+        policy_error = "policy process failed" if proc.returncode else None
+    data["policy_error"] = policy_error
+    data["termination"] = {
+        "kind": "completion" if data.get("success") else "incomplete/violated",
+        "step": entries[-1]["state"]["steps"],
+        "time_s": entries[-1]["state"]["steps"] * 0.004,
+        "reason": policy_error,
+    }
     (dest / "result.json").write_text(json.dumps(data, indent=2) + "\n")
     with (out / "results.jsonl").open("a") as file:
         file.write(json.dumps(data) + "\n")

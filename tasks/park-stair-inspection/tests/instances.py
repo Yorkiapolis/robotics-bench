@@ -27,15 +27,16 @@ def make_scene(base, seed, phase="eval"):
     index = seed - low
     raw = hashlib.sha256(f"{FAMILY}:{phase}:{seed}".encode()).digest()
     # Six explicitly reproducible corners per phase; remaining seeds cover the interior.
-    profile = index // 2 if index < 6 else index % 3
+    corner = index % 1024
+    profile = corner // 2 if corner < 6 else index % 3
     u = (
-        [index % 2] * 8
-        if index < 6
+        [corner % 2] * 8
+        if corner < 6
         else [
             int.from_bytes(raw[i : i + 4], "big") / (2**32 - 1) for i in range(0, 32, 4)
         ]
     )
-    if phase == "eval" and index < 6:
+    if phase == "eval" and corner < 6:
         # Holdout corners share geometry bounds, but never the development spawn/load.
         u[4:] = [
             int.from_bytes(raw[i : i + 4], "big") / (2**32 - 1)
