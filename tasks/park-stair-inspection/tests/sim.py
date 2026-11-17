@@ -12,29 +12,27 @@ CLEARANCE = 0.125
 
 
 def geometry(scene):
-    p = scene["layouts"][scene.get("layout", "dev")]
-    tread, rise = 0.24, 0.065
-    flights = [
+    return scene["instance"]["spawn"], scene["instance"]["flights"]
+
+
+def platforms(flights):
+    f, g = flights
+    end0 = f["origin"][0] + f["count"] * f["tread"]
+    end1 = g["origin"][1] + g["count"] * g["tread"]
+    h1 = f["count"] * f["rise"]
+    h2 = h1 + g["count"] * g["rise"]
+    return [
         {
-            "origin": [1.3, 0],
-            "axis": [1, 0],
-            "base": 0.0,
-            "tread": tread,
-            "rise": rise,
-            "count": 4,
-            "width": 1.3,
+            "name": "level1",
+            "lo": [end0, -0.8, 0],
+            "hi": [g["origin"][0] + 0.9, g["origin"][1], h1],
         },
         {
-            "origin": [3.2, 1.45],
-            "axis": [0, 1],
-            "base": 4 * rise,
-            "tread": tread,
-            "rise": rise,
-            "count": 4,
-            "width": 1.3,
+            "name": "level2",
+            "lo": [g["origin"][0] - 0.8, end1, 0],
+            "hi": [g["origin"][0] + 0.9, end1 + 1.59, h2],
         },
     ]
-    return p, flights
 
 
 def mission(flights):
@@ -76,8 +74,8 @@ def xml(scene):
             f'<geom name="{name}" type="box" pos="{" ".join(map(str, mid))}" size="{" ".join(map(str, size))}"/>'
         )
 
-    box("level1", [2.26, -0.8, 0], [4.1, 1.45, 0.26])
-    box("level2", [2.4, 2.41, 0], [4.1, 4.0, 0.52])
+    for platform in platforms(flights):
+        box(platform["name"], platform["lo"], platform["hi"])
     for k, f in enumerate(flights):
         for i in range(f["count"]):
             s = (i + 0.5) * f["tread"]
@@ -122,9 +120,12 @@ def xml(scene):
         actuators.append(
             f'<position name="{name}" joint="{name}" kp="60" kv="5" ctrlrange="-.9 .9" forcerange="-12 12"/>'
         )
+    dynamics = scene.get("instance", {}).get("dynamics", {})
+    friction = dynamics.get("friction", 1.0)
+    mass = dynamics.get("chassis_mass", 5.0)
     yaw = p["yaw"]
     x, y = p["xy"]
-    text = f'''<mujoco model="park-stair-inspection"><compiler angle="radian"/><option timestep="{DT}" integrator="implicitfast" cone="elliptic" iterations="50"/><default><geom friction="1.0 .005 .0001" condim="3" solref=".012 1"/><joint armature=".005"/><default class="robot"><geom contype="2" conaffinity="1"/></default></default><worldbody>{"".join(geoms)}<body name="base" childclass="robot" pos="{x} {y} .14" quat="{math.cos(yaw / 2)} 0 0 {math.sin(yaw / 2)}"><freejoint/><geom type="box" size=".25 .17 .065" mass="5" rgba=".8 .5 .15 1"/>{"".join(parts)}</body></worldbody><actuator>{"".join(actuators)}</actuator></mujoco>'''
+    text = f'''<mujoco model="park-stair-inspection"><compiler angle="radian"/><option timestep="{DT}" integrator="implicitfast" cone="elliptic" iterations="50"/><default><geom friction="{friction} .005 .0001" condim="3" solref=".012 1"/><joint armature=".005"/><default class="robot"><geom contype="2" conaffinity="1"/></default></default><worldbody>{"".join(geoms)}<body name="base" childclass="robot" pos="{x} {y} .14" quat="{math.cos(yaw / 2)} 0 0 {math.sin(yaw / 2)}"><freejoint/><geom type="box" size=".25 .17 .065" mass="{mass}" rgba=".8 .5 .15 1"/>{"".join(parts)}</body></worldbody><actuator>{"".join(actuators)}</actuator></mujoco>'''
     return text, wheel_side, flipper_names
 
 

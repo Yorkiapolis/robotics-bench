@@ -15,8 +15,7 @@ def control(body):
             isinstance(a, list)
             and len(a) == n
             and all(
-                type(v) is int or (type(v) is float and math.isfinite(v))
-                for v in a
+                type(v) is int or (type(v) is float and math.isfinite(v)) for v in a
             )
         ):
             raise BadRequest(f"{name} must contain {n} finite numbers (not booleans)")
