@@ -1,0 +1,1 @@
+{"task":"park-stair-inspection","layout":"dev","layouts":{"dev":{"xy":[0,0],"yaw":0},"eval1":{"xy":[-0.06,0.045],"yaw":0.06},"eval2":{"xy":[0.05,-0.05],"yaw":-0.07}},"budgets":{"actions":400,"observations":400,"wall_s":1800}}
