@@ -14,7 +14,10 @@ def control(body):
         if not (
             isinstance(a, list)
             and len(a) == n
-            and all(type(v) in (int, float) and math.isfinite(v) for v in a)
+            and all(
+                type(v) is int or (type(v) is float and math.isfinite(v))
+                for v in a
+            )
         ):
             raise BadRequest(f"{name} must contain {n} finite numbers (not booleans)")
     if type(body["steps"]) is not int:
