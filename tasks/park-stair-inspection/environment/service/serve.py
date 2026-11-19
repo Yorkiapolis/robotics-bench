@@ -46,6 +46,7 @@ class Patrol(Episode):
                 "route": sim.mission(flights),
                 "flights": flights,
                 "platforms": sim.platforms(flights),
+                "guards": sim.guards(self.scene),
                 "robot": self.scene["instance"]["dynamics"],
             },
             "limits": {"tracks": [-8, 8], "flippers": [-0.9, 0.9], "steps": [1, 250]},

@@ -4,6 +4,7 @@
 import argparse
 import hashlib
 import json
+import os
 import subprocess
 import time
 import uuid
@@ -45,7 +46,7 @@ def trial(out, mode, selection, repeat, sequence=None):
         "none",
         "--entrypoint",
         "sleep",
-        "park-pr7-agent",
+        os.environ.get("PARK_AGENT_IMAGE", "park-pr7-agent"),
         "infinity",
     )
     try:
@@ -107,7 +108,7 @@ def trial(out, mode, selection, repeat, sequence=None):
             str(dest / "export") + ":/var/lib/patrol/export:ro",
             "-v",
             str(logs) + ":/logs/verifier",
-            "park-pr7-tests",
+            os.environ.get("PARK_TEST_IMAGE", "park-pr7-tests"),
             "sh",
             "/tests/test.sh",
         )

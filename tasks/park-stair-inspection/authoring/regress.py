@@ -252,7 +252,20 @@ def main():
     # Keep only the initial hold and final return: cannot jump from start to finish.
     check("predicate_jump", not verdict(samples[:150] + samples[-150:]))
     # Remove the first flight's internal samples: missing intermediate crossings cannot count.
-    stream = [p for p in samples if not (p["time_s"] < 15 and 1.1 < p["xyz"][0] < 2.5)]
+    # Identify the first active ascent using the unchanged scorer and actual map.
+    # The old fixed 15 s / X window no longer covers taller v3 flights.
+    guide = Patrol(scene)
+    flight = scene["instance"]["flights"][0]
+    stream = []
+    for p in samples:
+        active = guide.index == 2
+        along = sum(
+            (v - o) * a
+            for v, o, a in zip(p["xyz"][:2], flight["origin"], flight["axis"])
+        )
+        guide.update(p)
+        if not (active and 0 <= along <= flight["count"] * flight["tread"]):
+            stream.append(p)
     check("predicate_partial_flight", not verdict(stream))
     check("predicate_reverse_history", not verdict(list(reversed(samples))))
     for label, change in [
