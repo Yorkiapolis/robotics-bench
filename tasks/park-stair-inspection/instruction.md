@@ -2,7 +2,7 @@
 
 # Three-level inspection patrol
 
-Drive the robot from ground to intermediate to upper, then back through intermediate to ground. Inspection means physically reaching and settling at an observation point; there is no image-recognition task. **Tengyu Zhang (Tsinghua University)** is the expert who proposed the original multilevel tracked-robot inspection scenario. This separately authored compact simulation uses that scenario as inspiration; this credit does not imply implementation authorship or approval.
+Drive the robot from ground to intermediate to upper, then back through intermediate to ground. Inspection means physically reaching and settling at an observation point; there is no image-recognition task. **Tengyu Zhang ([@EscapeTHU](https://github.com/EscapeTHU), Tsinghua University)** is the primary task author / original scenario author. **Zheyan Liu ([@Yorkiapolis](https://github.com/Yorkiapolis), ZIWU AI)** is responsible for agent bench construction. **Yuyi Li ([@leeyyi](https://github.com/leeyyi), ZIWU AI)** and **Jianing Wang ([@yanhuachisha](https://github.com/yanhuachisha), ZIWU AI)** participate in agent bench construction.
 
 Use the public Python client in `/app/client.py`. `Client()` starts the protected service. The endpoint and bearer token are in `/run/patrol/endpoint.json`. Write any optional working files to `/app/output`. Call `finish()` to submit. There is one episode, no reset or recovery operation. The robot is a free dynamic body: only traction and flipper actuators move it.
 

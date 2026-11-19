@@ -4,7 +4,7 @@
 
 Physics/controller evidence source: `50b83f90de48d22f22bb51f312bf5f87edffba83`; later evidence/documentation commits do not change that physics or controller. Linux x86_64, MuJoCo 3.3.7, NumPy 2.5.4, Docker CPU. Each matrix agent/verifier is limited to one CPU / 2 GB. Host: four CPUs. All raw traces, videos, logs and builds live outside the tracked task. No GPU or new model trial ran.
 
-**Scenario credit: Tengyu Zhang (Tsinghua University)**, original inspection scenario contributor; not implementation author or approver. All new geometry is independently authored primitives.
+**Tengyu Zhang ([@EscapeTHU](https://github.com/EscapeTHU), Tsinghua University)** is the primary task author / original scenario author. **Zheyan Liu ([@Yorkiapolis](https://github.com/Yorkiapolis), ZIWU AI)** is responsible for agent bench construction. **Yuyi Li ([@leeyyi](https://github.com/leeyyi), ZIWU AI)** and **Jianing Wang ([@yanhuachisha](https://github.com/yanhuachisha), ZIWU AI)** participate in agent bench construction. All new geometry is independently authored primitives.
 
 ## Results and limits
 
