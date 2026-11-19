@@ -4,7 +4,7 @@
 
 Physics/controller evidence source: `50b83f90de48d22f22bb51f312bf5f87edffba83`; later evidence/documentation commits do not change that physics or controller. Linux x86_64, MuJoCo 3.3.7, NumPy 2.5.4, Docker CPU. Each matrix agent/verifier is limited to one CPU / 2 GB. Host: four CPUs. All raw traces, videos, logs and builds live outside the tracked task. No GPU or new model trial ran.
 
-Human attribution corrected in the current README and task metadata: Tengyu Zhang (@EscapeTHU), Tsinghua University, is the task author / original scenario author. Zheyan Liu (@Yorkiapolis) is responsible for agent bench construction; Yuyi Li (@leeyyi) and Jianing Wang (@yanhuachisha) also participate. The measurements below remain historical v2 results.
+Human attribution corrected in the current README and task metadata: Tengyu Zhang (@EscapeTHU), Tsinghua University, is the primary task author / original scenario author. Zheyan Liu (@Yorkiapolis), ZIWU AI, is responsible for agent bench construction; Yuyi Li (@leeyyi) and Jianing Wang (@yanhuachisha), ZIWU AI, also participate. The measurements below remain historical v2 results.
 
 ## Results and limits
 

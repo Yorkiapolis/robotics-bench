@@ -19,7 +19,9 @@ def main():
     ap.add_argument("--commit", required=True)
     ap.add_argument("--run", required=True)
     ap.add_argument("--policy", required=True)
+    ap.add_argument("--playback-speed", type=int, choices=[1, 2, 4], default=1)
     a = ap.parse_args()
+    cadence = 10 * a.playback_speed
     sys.path.insert(0, str(a.source_task.resolve() / "tests"))
     import mujoco
     import numpy as np
@@ -108,7 +110,7 @@ def main():
         draw = ImageDraw.Draw(canvas)
         draw.text(
             (650, 255),
-            f"{a.policy}\nreward {grade['reward']}\n1x real time, 25 fps\nstep {world.steps}\nt={world.steps * 0.004:.3f}s\nevent {judge.index}/13",
+            f"{a.policy}\nreward {grade['reward']}\n{a.playback_speed}x playback, 25 fps\nstep {world.steps}\nt={world.steps * 0.004:.3f}s\nevent {judge.index}/13",
             font=font,
         )
         if first:
@@ -171,7 +173,7 @@ def main():
                     "predicate": "no_fall" if judge.fallen else "flight_envelopes",
                     "pose": p,
                 }
-            if world.steps % 10 == 0:
+            if world.steps % cadence == 0:
                 frame(p)
             last = world.steps
         return p
@@ -224,9 +226,9 @@ def main():
         "seal": seal,
         "first_violation": first,
         "frames": frames,
-        "cadence_steps": 10,
+        "cadence_steps": cadence,
         "fps": 25,
-        "playback_speed": 1,
+        "playback_speed": a.playback_speed,
         "exact_replay": True,
         "predicate_match": True,
         "render_state_unchanged": True,

@@ -15,6 +15,7 @@ def main():
     parser.add_argument("--commit", required=True)
     parser.add_argument("--policy", required=True)
     parser.add_argument("--run")
+    parser.add_argument("--playback-speed", type=int, choices=[1, 2, 4], default=1)
     args = parser.parse_args()
     exports = [args.trial / "artifacts/var/lib/patrol/export", args.trial / "export"]
     details = [
@@ -39,6 +40,8 @@ def main():
             args.commit,
             "--policy",
             args.policy,
+            "--playback-speed",
+            str(args.playback_speed),
             "--run",
             args.run or args.trial.name,
         ],
