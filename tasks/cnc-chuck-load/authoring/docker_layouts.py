@@ -27,7 +27,7 @@ def main():
     results=[]
     seeds=json.loads(a.manifest.read_text())['seed_ids']
     cases={k:{'mode':'fixed','seed':v} for k,v in list(seeds.items())[:2]}
-    cases.update({'corner-short':{'mode':'boundary','case':'corner-3-0'},'corner-long':{'mode':'boundary','case':'corner-0-3'},
+    cases.update({'corner-short':{'mode':'boundary','case':'corner-3-0-g10.0-f0.28'},'corner-long':{'mode':'boundary','case':'corner-0-3-g40.0-f0.36'},
                   'fresh-1':None,'fresh-2':None})
     selections=[]
     for layout,selection in cases.items():
