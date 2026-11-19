@@ -1,6 +1,6 @@
 {
   "family": "park-steps-v3",
-  "created_at_utc": "2026-11-19T04:22:59.915995+00:00",
+  "created_at_utc": "2026-11-19T04:27:04.647038+00:00",
   "no_final_eval_seeds_drawn_at_freeze": true,
   "engine": "MuJoCo 3.3.7",
   "numpy": "2.5.4",
@@ -179,7 +179,7 @@
     "authoring/selection_tests.py": "188b4d7f6f507ab2cc757f464e1cd9526f7807c88c84a083826bd2af45de868d",
     "environment/.dockerignore": "ced4c6de43d86bb90af12239a19fe8a3dfcfcbb4f61f751ebc01872d49108478",
     "environment/Dockerfile": "f0e2bfa976c28a3344144dd5572cd752e4eafec77de68f2a70f70f1c624bf914",
-    "environment/app/API.md": "7c49f28a8e4e4edacba458203755c8703c6b2f31b5e7c059bf5dfb2693085f4d",
+    "environment/app/API.md": "a694d174cbff4a348288fe68988476ba4f394d737c7d26b69b64c2ff09e22448",
     "environment/app/client.py": "44bc1a7e02a059749f95de94b3c970359850775883e2ace3708d30f4c7e7279a",
     "environment/requirements.txt": "db00752bea31f562ef191c13af48a44a9b11972f6a9ff77a3ea05f3bc836953d",
     "environment/service/casekit/__init__.py": "bfac748343b61d01e55ac8d8608619e53b5be4d17fba095458850aa64593080b",
@@ -195,10 +195,10 @@
     "environment/service/serve.py": "ae0afedc256dd900169cde8f192c9d112fae7c38696412e1e4558050a72f7e54",
     "environment/service/sim.py": "b0d35b0a67c5062bc2aa1867ec7fb3be7864e25f4c185ad2eea042ca92ff6415",
     "environment/start-patrol-service": "05a79885780e7e40861d1640878ae6e75515c0b3f990746fd4499b52eefc638f",
-    "instruction.md": "7c49f28a8e4e4edacba458203755c8703c6b2f31b5e7c059bf5dfb2693085f4d",
+    "instruction.md": "a694d174cbff4a348288fe68988476ba4f394d737c7d26b69b64c2ff09e22448",
     "solution/oracle.py": "1f0c6590de7936e366374f402e34424ca233708848b20859a057b2dea9521cc0",
     "solution/solve.sh": "08f2bf5446483c0dc37ddd59bd30bfe7556d61b2d9c337957c6f1847b94d63b2",
-    "task.toml": "77ab1d0f83ed11eaa661e0fb44a24f9b0704b3922cd50aa49aaa03691d2a147e",
+    "task.toml": "9d4ffbeb1a97f262a3cc5b4c5e990f0299620ae3b9f724c83d897ae9ae13fd41",
     "tests/.dockerignore": "ced4c6de43d86bb90af12239a19fe8a3dfcfcbb4f61f751ebc01872d49108478",
     "tests/Dockerfile": "ed49253b6b15955e0534644fcdd6c53567699fec1b398c09f0ded4bd27e78c1c",
     "tests/casekit/__init__.py": "bfac748343b61d01e55ac8d8608619e53b5be4d17fba095458850aa64593080b",
@@ -228,5 +228,6 @@
     "successes": 0,
     "trials": 6
   },
-  "upstream_guidance_commit": "83a928f33d8dcfd8f7d4de1cbc1801461eefa54e"
+  "upstream_guidance_commit": "83a928f33d8dcfd8f7d4de1cbc1801461eefa54e",
+  "authorship_correction_before_heldout": "Tengyu Zhang primary; supplied organizations Tsinghua University / ZIWU AI; no provided personal emails or COI assertions."
 }
